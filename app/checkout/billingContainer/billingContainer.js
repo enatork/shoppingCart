@@ -7,8 +7,15 @@ angular.module('checkout').directive('billingContainer', function(){
 		replace:true
 	}
 })
-.controller('billingContainerController', function(){
+.controller('billingContainerController', ['checkoutManager','$state' ,function(checkoutManager, $state){
 	this.showBilling = true;
 	this.showShipping = false;
 	this.showReview = false;
-});
+
+
+	if(checkoutManager.totalPrice() === "0.00")
+	{
+		$state.go('checkout')
+	}
+
+}]);

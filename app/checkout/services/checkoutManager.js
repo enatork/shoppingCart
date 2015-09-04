@@ -14,12 +14,11 @@ angular.module('checkout').factory('checkoutManager', ['$q', '$timeout','utility
 			'quantity': 3,
 			'price': 4.99
 		}];
-	var cart = [];
 	var getCart = function(){
 		//mocked data
 		var deferred = $q.defer();
 
-		if(cart.length === 0)
+		if(!cart)
 		{
 			cart = angular.copy(mockCart);
 		}
@@ -35,6 +34,15 @@ angular.module('checkout').factory('checkoutManager', ['$q', '$timeout','utility
         //xhr request would go out to also update the cart on the server at this point as well
         return cart;
     };
+
+    var totalPrice = function(){
+		var total = 0;
+		for(var i =0; i < cart.length; i++)
+		{
+			total += (cart[i].price * cart[i].quantity);
+		}
+		return utility.formatMoney(total);
+	}
 
     var saveBilling = function(billing){
     	billingInfo = billing;
@@ -108,6 +116,7 @@ return {
 	luhn: luhn,
 	copyBillingToShipping: copyBillingToShipping,
 	submitCheckout: submitCheckout,
+	totalPrice: totalPrice
 
 }
 }]);

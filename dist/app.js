@@ -565,11 +565,18 @@ angular.module('checkout').directive('billingContainer', function(){
 		replace:true
 	}
 })
-.controller('billingContainerController', function(){
+.controller('billingContainerController', ['checkoutManager','$state' ,function(checkoutManager, $state){
 	this.showBilling = true;
 	this.showShipping = false;
 	this.showReview = false;
-});
+
+
+	if(checkoutManager.totalPrice() === "0.00")
+	{
+		$state.go('checkout')
+	}
+
+}]);
 angular.module('checkout').directive('cart', function(){
 	return {
 		scope:{},
@@ -582,27 +589,38 @@ angular.module('checkout').directive('cart', function(){
 .controller('cartController', ['checkoutManager','utility', function(checkoutManager, utility){
 	
 	var me = this;
+	this.isEmpty;
 	this.cart = [];
 	checkoutManager.getCart().then(function(resp){
 		me.cart = resp;
+		if(me.cart.length > 0){
+			me.isEmpty = false;
+		}
+		else{
+			me.isEmpty = true;
+		}
 	});
 
 
 	this.getPrice = function(quantity, price){
 		return utility.formatMoney(quantity * price);
 	}
-	this.totalPrice = function(){
-		var total = 0;
-		for(var i =0; i < me.cart.length; i++)
-		{
-			total += (me.cart[i].price * me.cart[i].quantity);
-		}
-		return utility.formatMoney(total);
+	this.totalPrice = function(){	
+		return checkoutManager.totalPrice();
 	}
 	this.removeItem = function(itemId){
 		this.cart = checkoutManager.removeItem(itemId);
+		me.isCartEmpty();
 	}
 
+	this.isCartEmpty = function(){
+		if(this.totalPrice() === "0.00"){
+			me.isEmpty = true;
+		}
+		else{
+			me.isEmpty = false;
+		}
+	}
 }]);
 angular.module('checkout').directive('confirmation', function(){
 	
@@ -623,12 +641,11 @@ angular.module('checkout').factory('checkoutManager', ['$q', '$timeout','utility
 			'quantity': 3,
 			'price': 4.99
 		}];
-	var cart = [];
 	var getCart = function(){
 		//mocked data
 		var deferred = $q.defer();
 
-		if(cart.length === 0)
+		if(!cart)
 		{
 			cart = angular.copy(mockCart);
 		}
@@ -644,6 +661,15 @@ angular.module('checkout').factory('checkoutManager', ['$q', '$timeout','utility
         //xhr request would go out to also update the cart on the server at this point as well
         return cart;
     };
+
+    var totalPrice = function(){
+		var total = 0;
+		for(var i =0; i < cart.length; i++)
+		{
+			total += (cart[i].price * cart[i].quantity);
+		}
+		return utility.formatMoney(total);
+	}
 
     var saveBilling = function(billing){
     	billingInfo = billing;
@@ -717,6 +743,7 @@ return {
 	luhn: luhn,
 	copyBillingToShipping: copyBillingToShipping,
 	submitCheckout: submitCheckout,
+	totalPrice: totalPrice
 
 }
 }]);

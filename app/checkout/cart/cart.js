@@ -10,25 +10,36 @@ angular.module('checkout').directive('cart', function(){
 .controller('cartController', ['checkoutManager','utility', function(checkoutManager, utility){
 	
 	var me = this;
+	this.isEmpty;
 	this.cart = [];
 	checkoutManager.getCart().then(function(resp){
 		me.cart = resp;
+		if(me.cart.length > 0){
+			me.isEmpty = false;
+		}
+		else{
+			me.isEmpty = true;
+		}
 	});
 
 
 	this.getPrice = function(quantity, price){
 		return utility.formatMoney(quantity * price);
 	}
-	this.totalPrice = function(){
-		var total = 0;
-		for(var i =0; i < me.cart.length; i++)
-		{
-			total += (me.cart[i].price * me.cart[i].quantity);
-		}
-		return utility.formatMoney(total);
+	this.totalPrice = function(){	
+		return checkoutManager.totalPrice();
 	}
 	this.removeItem = function(itemId){
 		this.cart = checkoutManager.removeItem(itemId);
+		me.isCartEmpty();
 	}
 
+	this.isCartEmpty = function(){
+		if(this.totalPrice() === "0.00"){
+			me.isEmpty = true;
+		}
+		else{
+			me.isEmpty = false;
+		}
+	}
 }]);

@@ -1,4 +1,5 @@
 <div>
+<div ng-hide=cc.isEmpty>
 	<table>
 		<tr>
 			<th>Product Name</th>
@@ -11,7 +12,7 @@
 		<tr class="cartItem" ng-repeat="item in cc.cart">
 			<td class="itemName" ng-bind="item.itemName"></td>
 			<td>${{item.price}}</td>
-			<td><input class="cartQuantity" type="number" ng-model="item.quantity" min="0"></td>
+			<td><input class="cartQuantity" type="number" ng-change="cc.isCartEmpty()" ng-model="item.quantity" min="0"></td>
 			<td>${{cc.getPrice(item.quantity, item.price)}}</td>
 			<td><button class="cartRemove" ng-click="cc.removeItem(item.id)">remove item</button></td>
 			
@@ -22,4 +23,8 @@
   <div class="cartTotal">
   	<label class="cartTotal">Grand Total </label><span>${{cc.totalPrice()}}</span>
   </div>
+</div>
+<div ng-show=cc.isEmpty>
+	<h1>Cart is empty</h1>
+</div>
 </div>
