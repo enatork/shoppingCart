@@ -1,0 +1,60 @@
+<div ng-show="sc.showShipping">
+	<h1>shipping information</h1>
+	<input type='checkbox' ng-change="sc.addressSameAsBilling(checked)" ng-model=checked><span>Same as Billing.</span>
+	<form class="form" name="shippingForm">
+		<div>
+			<label >Name:</label > 
+			<div>
+				<input class="inputField" type="text" ng-model="sc.shippingForm.shippingName" name="name" required="">
+				<div ng-show="shippingForm.$submitted || shippingForm.shippingName.$touched">
+					<span ng-show="shippingForm.shppingName.$error.required">Name Required.</span>
+				</div>
+			</div>
+		</div>
+		<div>
+			<label >Country:</label > 
+			<div>
+				<select class="selectDropdown country"  ng-model="sc.shippingForm.shippingCountry" name="country" required="">
+					<option ng-repeat="option in sc.countries" value="{{option.name}}">{{option.name}}</option>
+				</select>
+				<div ng-show="shippingForm.$submitted || shippingForm.shippingCountry.$touched">
+					<span ng-show="shippingForm.shippingCountry.$error.required">Address Required</span>
+				</div>
+			</div>
+		</div>
+		<div>
+			<label >Address:</label ><div> <input type="text" class="inputField" ng-model="sc.shippingForm.shippingAddress" name="address" required=""></input>
+				<div ng-show="shippingForm.$submitted || shippingForm.shippingAddress.$touched">
+					<span ng-show="shippingForm.shippingAddress.$error.required">Address Required</span>
+				</div>
+			</div>
+		</div>
+		<div>
+			<label >City:</label ><div> <input class="inputField" type="text" ng-model="sc.shippingForm.shippingCity" name="city" required="">
+				<div ng-show="shippingForm.$submitted || shippingForm.shippingCity.$touched">
+					<span ng-show="shippingForm.shippingCity.$error.required">City Required</span>
+
+				</div>
+			</div>
+		</div>
+		<div ng-show="sc.shippingForm.shippingCountry == 'United States'">
+			<label >State:</label > 
+			<div>
+				<select ng-model="sc.shippingForm.shippingState" name="state" ng-required="sc.shippingForm.shippingCountry == 'United States'">
+					<option ng-repeat="option in sc.states" value="{{option.name}}">{{option.name}}</option>
+				</select>
+				<div ng-show="shippingForm.$submitted || shippingForm.shippingState.$touched">
+					<span ng-show="shippingForm.shippingState.$error.required">Address Required</span>
+				</div>
+			</div>
+		</div>
+		<div ng-show="sc.shippingForm.shippingCountry == 'United States'">
+			<label >Zip:</label ><div> <input class="inputField" type="text" ng-model="sc.shippingForm.shippingZip" name="zip" ng-required="sc.shippingForm.shippingCountry == 'United States'">
+				<div ng-show="shippingForm.$submitted || shippingForm.zip.$touched">
+					<span ng-show="shippingForm.shippingZip.$error.required">Zip Required.</span>
+				</div>
+			</div>
+		</div>
+			<input class="inputField continueBtn" type="submit" ng-click="sc.saveShipping(sc.shippingForm)" value="Continue" ng-disabled="shippingForm.$invalid"/>
+	</form>
+</div>

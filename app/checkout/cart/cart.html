@@ -1,0 +1,25 @@
+<div>
+	<table>
+		<tr>
+			<th>Product Name</th>
+			<th>Price</th>	
+			<th>Quantity</th>			
+			<th>Subtotal</th>
+			<th>Remove</th>
+		</tr>
+
+		<tr class="cartItem" ng-repeat="item in cc.cart">
+			<td class="itemName" ng-bind="item.itemName"></td>
+			<td>${{item.price}}</td>
+			<td><input class="cartQuantity" type="number" ng-model="item.quantity" min="0"></td>
+			<td>${{cc.getPrice(item.quantity, item.price)}}</td>
+			<td><button class="cartRemove" ng-click="cc.removeItem(item.id)">remove item</button></td>
+			
+		</tr>
+
+</table>
+ 
+  <div class="cartTotal">
+  	<label class="cartTotal">Grand Total </label><span>${{cc.totalPrice()}}</span>
+  </div>
+</div>

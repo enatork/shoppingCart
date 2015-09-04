@@ -1,0 +1,100 @@
+<div ng-show=bc.showBilling>
+	<h1>Billing Information</h1>
+	<form class="form" name="billingForm">
+		<div>
+			<label for="country">Country:</label><div>
+			<select class="selectDropdown country" ng-model="bc.billingForm.country" name="country" required="">
+				<option ng-repeat="option in bc.countries" value="{{option.name}}">{{option.name}}</option>
+			</select>
+			<div ng-show="billingForm.$submitted || billingForm.country.$touched">
+				<span class="error" ng-show="billingForm.country.$error.required">Country Required</span>
+			</div>
+		</div>
+	</div>
+	<div>
+		<label for="address">Address:</label >
+			<div>
+				<input class="inputField" type="text" ng-model="bc.billingForm.address" name="address" required=""></input>
+				<div ng-show="billingForm.$submitted || billingForm.address.$touched">
+					<span class="error" ng-show="billingForm.address.$error.required">Address Required</span>
+				</div>
+			</div>
+		</div>
+		<div>
+			<label for="city">City:</label > 
+				<div><input class="inputField" type="text" ng-model="bc.billingForm.city" name="city" required="">
+					<div ng-show="billingForm.$submitted || billingForm.city.$touched">
+						<span class="error" ng-show="billingForm.city.$error.required">City Required</span>
+
+					</div>
+				</div>
+			</div>
+			<div ng-show="bc.billingForm.country == 'United States'">
+				<label for="state">State:</label> 
+				<div>
+					<select class="selectDropdown" ng-model="bc.billingForm.state" name="state" ng-required="bc.billingForm.country == 'United States'">
+						<option ng-repeat="option in bc.states" value="{{option.name}}">{{option.name}}</option>
+					</select>
+					<div ng-show="billingForm.$submitted || billingForm.state.$touched">
+						<span  class="error" ng-show="billingForm.state.$error.required">Address Required</span>
+					</div>
+				</div>
+			</div>
+			<div ng-show="bc.billingForm.country == 'United States'">
+				<label for="zip">Zip:</label >
+					<div>
+						<input class=" inputField inputFieldZip" type="text" ng-model="bc.billingForm.zip" name="zip" ng-required="bc.billingForm.country == 'United States'">
+						<div ng-show="billingForm.$submitted || billingForm.zip.$touched">
+							<span class="error" ng-show="billingForm.zip.$error.required">Zip Required.</span>
+						</div>
+					</div>
+				</div>
+
+				<div>
+					<h1> Payment Information </h1>
+					<label for="name">Name On Card:</label > 
+						<div>
+							<input class="inputField" type="text" ng-model="bc.billingForm.name" name="name" required="">
+							<div ng-show="billingForm.$submitted || billingForm.name.$touched">
+								<span class="error" ng-show="billingForm.name.$error.required">Name Required.</span>
+							</div>
+						</div>
+					</div>
+					<div>
+						<label for="creditCardType">Credit Card:</label> 
+						<div>
+							<select class="selectDropdown credit" ng-model="bc.billingForm.creditCardType" name="creditCardType" required="">
+								<option ng-repeat="option in bc.creditCards" value="{{option}}">{{option}}</option>
+							</select>
+							<div ng-show="billingForm.$submitted || billingForm.creditCardType.$touched">
+								<span class="error" ng-show="billingForm.creditCardType.$error.required">Credit Card Type Required</span>
+							</div>
+						</div>
+					</div>
+					<div>
+						<label for="creditCardNumber">Credit Card Number:</label>
+						<div>
+							<input  class="inputField" type="text" maxlength="16" data-ng-pattern="/\d{13,16}/"autocomplete="off" ng-model="bc.billingForm.creditCardNumber" name="creditCardNumber" required="">
+							<div ng-show="billingForm.$submitted || billingForm.creditCardNumber.$touched">
+								<span class="error" ng-show="billingForm.creditCardNumber.$error.required || creditCardForm.creditCardNumber.$error.pattern">Credit Card Number Required.</span>
+
+							</div>
+						</div>
+					</div>
+					<div>
+						<label>Credit Card Expiration Date:</label> 
+						<div>
+							<select class="selectDropdown" ng-model="bc.billingForm.ccExpireMonth" name="ccExpireMonth" required="">
+								<option ng-repeat="option in bc.creditCardMonths" value="{{option.id}}">{{option.name}}</option>
+							</select>
+							<select class="selectDropdown" ng-model="bc.billingForm.ccExpireYear" name="ccExpireYear" required="">
+								<option ng-repeat="option in bc.creditCardYears" value="{{option}}">{{option}}</option>
+							</select>
+							<div ng-show="billingForm.$submitted || billingForm.ccExpireYear.$touched">
+								<span class="error" ng-show="billingForm.ccExpireYear.$error.required">Expiration Required</span>
+							</div>
+						</div>
+					</div>
+					<input class="inputField continueBtn" type="submit" ng-click="bc.saveBilling(bc.billingForm)" value="Continue" ng-disabled="billingForm.$invalid"/>
+				</form>
+			</div>

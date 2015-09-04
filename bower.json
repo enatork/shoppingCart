@@ -1,0 +1,26 @@
+{
+  "name": "checkout",
+  "version": "0.0.0",
+  "authors": [
+    "Van Le <kimvan.le@gmail.com>"
+  ],
+  "description": "simple checkout app",
+  "main": "app/app.js",
+  "moduleType": [
+    "es6",
+    "globals"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.5",
+    "angular-ui-router": "~0.2.15",
+    "normalize-css": "normalize.css#~3.0.3"
+  }
+}

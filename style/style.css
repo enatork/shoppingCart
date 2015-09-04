@@ -1,0 +1,128 @@
+body {
+  background-color: #f8f8f8;
+  font-family: 'Open Sans', helvetica; }
+
+ul {
+  padding: 0;
+  margin: 0; }
+
+li {
+  list-style: none; }
+
+table {
+  border-bottom: 1px solid #ddd; }
+  table th {
+    width: 200px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-weight: 600;
+    font-size: 0.9em;
+    height: 35px; }
+
+.sitePadding {
+  margin-left: 20px; }
+
+.itemName {
+  font-weight: bold;
+  text-transform: capitalize; }
+
+.title {
+  height: 63px; }
+  .title h1 {
+    padding: 10px 0 10px 20px; }
+
+.cartContainer {
+  padding: 10px 0 10px 20px;
+  margin: 0 auto; }
+
+.cartItem {
+  height: 100px; }
+
+input.cartQuantity {
+  max-width: 50px;
+  padding-left: 5px; }
+
+.cartRemove {
+  background-color: #f8f8f8;
+  border: 0px;
+  color: blue;
+  font-size: 0.8em;
+  padding-left: 0; }
+
+.cartTotal {
+  margin-top: 25px;
+  max-width: 1000px;
+  text-align: right;
+  font-weight: 700; }
+  .cartTotal label {
+    margin-right: 35px; }
+
+.cartProceed {
+  width: 100%;
+  display: block;
+  margin-top: 40px;
+  text-align: center;
+  max-width: 1000px; }
+  .cartProceed .cartProceedbtn {
+    border-radius: 0;
+    background-color: black;
+    height: 50px;
+    color: white;
+    font-weight: 600;
+    width: 230px;
+    border: 0; }
+
+input[type="submit"].continueBtn {
+  border-radius: 0;
+  background-color: black;
+  height: 50px;
+  color: white;
+  font-weight: 600;
+  width: 230px;
+  border: 0; }
+
+input[type="submit"].continueBtn:disabled {
+  background-color: #e3e3e3; }
+
+.inputField {
+  width: 100%;
+  height: 30px;
+  border: 1px solid #ddd;
+  max-width: 500px; }
+
+.inputField.inputFieldZip {
+  max-width: 250px; }
+
+.selectDropdown {
+  height: 30px;
+  border: 1px solid #ddd; }
+
+.credit {
+  width: 250px; }
+
+.country {
+  width: 100%;
+  max-width: 500px; }
+
+textarea {
+  max-width: 500px;
+  height: 30px;
+  resize: none;
+  width: 100%;
+  border: 1px solid #ddd;
+  padding: 0; }
+
+.error {
+  font-size: 0.8em;
+  font-weight: 600;
+  color: red;
+  padding-top: 5px;
+  display: block; }
+
+.form div {
+  margin-bottom: 20px; }
+  .form div label {
+    margin-bottom: 10px;
+    display: block; }
+
+/*# sourceMappingURL=style.css.map */
